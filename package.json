@@ -1,0 +1,27 @@
+{
+  "name": "online-shopping-app",
+  "version": "1.0.0",
+  "description": "This is a Ecomerse website using MERN stack concept frontend to backend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/premprakashIT/Online-Shoping-App.git"
+  },
+  "author": "Prem Prakash",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/premprakashIT/Online-Shoping-App/issues"
+  },
+  "homepage": "https://github.com/premprakashIT/Online-Shoping-App#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "cors": "^2.8.5",
+    "jquery": "^3.7.1",
+    "mongoose": "^8.4.1",
+    "react": "^18.3.1"
+  }
+}

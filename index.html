@@ -1,0 +1,197 @@
+<!doctype html>
+
+<head>
+    <title>Online Shoping App</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        $(function () {
+            $("#btnnavRegister").click(function () {
+                $.ajax({
+                method: "GET",
+                url: "register.html"
+                })
+                    .then(function (response) {
+                        $("#bodyContainer").html(response);
+                        $("#btnRegister").click(function () {
+                            var customerData = {
+                                "UserId": $("#UserId").val(),
+                                "UserName": $("#UserName").val(),
+                                "Password": $("#Password").val(),
+                                "Email": $("#Email").val(),
+                                "Mobile": $("#Mobile").val()
+                            };
+                            $.ajax({
+                                method: "POST",
+                                url: "http://localhost:3000/customers",
+                                contentType: "application/json",
+                                data: JSON.stringify(customerData)
+                            })
+                            .done(function () {
+                                alert("Register Successfully.");
+
+                            })
+
+
+                        })
+                    })
+            })
+            $("#btnNavLogin").click(function(){
+                    $.ajax({
+                        method:"GET",
+                        url:"login.html",
+
+                    })
+                    .then(function(response){
+                        $("#bodyContainer").html(response);
+                        $("#btnLogin").click(function(){
+                            var userdetails={
+                                UserId:$("#txtUserId").val(),
+                                Password:$("#txtPwd").val()
+                            }
+                            $.ajax({
+                                method: "GET",
+                                url: "http://localhost:3000/customers"
+
+                            })
+                            .then(function(response){
+                                var userdetails = response.find(user=>user.UserId==$("#txtUserId").val());
+                                
+                                if(userdetails.UserId==$("#txtUserId").val() && userdetails.Password==$("#txtPwd").val()){
+                                    $.ajax({
+                                        method:"GET",
+                                        url:"shopping-home.html"
+                                    })
+                                    .then(function(response){
+                                        $("#bodyContainer").html(response);
+                                    }
+                            )}
+                                else{
+                                    alert("Invalid User Name and Password");
+                                }
+
+                                
+
+                            })
+                        })
+                    })
+            })
+        })
+    </script>
+    <!-- <script>
+        $(function () {
+            $("#btnnavRegister").click(function () {
+                $.ajax({
+                    method: "GET",
+                    url: "register.html"
+                })
+                    .then(function (response) {
+                        $("#bodyContainer").html(response);
+                        $("#btnRegister").click(function () {
+                            var customerData = {
+                                "UserId": $("#UserId").val(),
+                                "UserName": $("#UserName").val(),
+                                "Password": $("#Password").val(),
+                                "Email": $("#Email").val(),
+                                "Mobile": $("#Mobile").val()
+                            };
+                            $.ajax({
+                                method: "POST",
+                                url: "http://localhost:3000/customers",
+                                contentType: "application/json",
+                                data: JSON.stringify(customerData)  // Convert customerData to JSON string
+                            })
+                                .done(function () {
+                                    alert("Register Successfully.");
+
+                                })
+                                .fail(function (jqXHR, textStatus, errorThrown) {
+                                    alert("Error: " + textStatus + " " + errorThrown);
+                                });
+                        })
+                    })
+            })
+
+        })
+    </script> -->
+    <!-- <script>
+$(function() {
+    $("#btnRegister").click(function(event) {
+        event.preventDefault();  // Prevent default form submission
+        var customerData = {
+            "UserId": $("#UserId").val(),
+            "UserName": $("#UserName").val(),
+            "Password": $("#Password").val(),
+            "Email": $("#Email").val(),
+            "Mobile": $("#Mobile").val()
+        };
+        $.ajax({
+            method: "POST",
+            url: "http://localhost:3000/customers",
+            contentType: "application/json",
+            data: JSON.stringify(customerData)  // Convert customerData to JSON string
+        })
+        .done(function() {
+            alert("Register Successfully.");
+            location.href = "login.html";
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            alert("Error: " + textStatus + " " + errorThrown);
+        });
+
+    });
+    $("#UserId").keyup(function(){
+        var userId = $("#UserId").val();
+        $.ajax({
+            method:"GET",
+            url:"http://localhost:3000/customers"
+        })
+       
+        .then(function(data){
+            for(var item of data){
+                if(item.UserId==userId){
+                    $("#userError").html("User Exits Already!").css('color','red');
+                    break;
+                }else{
+                    $("#userError").html("User Id Availabe").css('color','green');;
+                }
+            }
+        })
+    })
+});
+</script> -->
+
+</head>
+
+<body class="container-fluid">
+
+    <head class="">
+        <h2 class="bg-dark text-white text-center p-2 m-1">Onling Shopping App</h2>
+    </head>
+    <section>
+        <div class="row">
+            <div class="col-3">
+                <div class="mt-2">
+                    <button id="btnnavRegister" class="btn btn-primary w-50">Register</button>
+
+                </div>
+                <div class="mt-2">
+                    <button id="btnNavLogin" class="btn btn-primary w-50">Login</button>
+                </div>
+            </div>
+            <div class="col-7">
+                <h4>Shopping | Home</h4>
+                <p>Shopping Any where Any Time</p>
+                <div id="bodyContainer">
+
+                </div>
+
+            </div>
+            <div class="col-2">
+
+            </div>
+        </div>
+    </section>
+
+
+</body>
